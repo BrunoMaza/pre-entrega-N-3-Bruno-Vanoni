@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 4px;
+  }
+  
+  #contenedorProductos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .tarjetaProducto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 4px solid green;
+    border-radius: 10px;
+    margin: 1px;
+  }
+
+  .tarjetaProducto:hover{
+    scale: 1.01;
+  }
+  
+  .imagen {
+    width: 200px;
+    height: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .miClase {
+    background-color: blueviolet;
+  }
+  
+  .ultimasUnidades {
+    background-color: rgb(236, 236, 236);
+  }
