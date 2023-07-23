@@ -3,7 +3,7 @@ let productos = [
   { id: 60203, nombre: "Odín", categoria: "Lámparas de mesa", stock: 20, precio: 2650, rutaImagen: "Odín-Art-60203.jpg" },
   { id: 60710, nombre: "Tortuga", categoria: "Lámparas de mesa", stock: 4, precio: 4500, rutaImagen: "Tortuga-Art-60710.jpg" },
   { id: 1200, nombre: "Dixon", categoria: "Colgantes", stock: 6, precio: 2800, rutaImagen: "Dixon-Art-1200.jpg" },
-  { id: 1212, nombre: "Odín", categoria: "Colgantes", stock: 3, precio: 7300, rutaImagen: "Odín-Art-1212.png" },
+  { id: 1212, nombre: "Odín", categoria: "Colgantes", stock: 3, precio: 7300, rutaImagen: "Odín-Art-1212.jpg" },
   { id: 1300, nombre: "Dixon", categoria: "Colgantes", stock: 2, precio: 5600, rutaImagen: "Dixon-Art-1300.jpg" },
   { id: 77710, nombre: "Tortuga", categoria: "Lámparas de pie", stock: 7, precio: 2650, rutaImagen: "Tortuga-Art-77710.jpg" },
   { id: 66000, nombre: "Odín", categoria: "Lámparas de pie", stock: 9, precio: 2650, rutaImagen: "Odín-Art-66000.png" },
