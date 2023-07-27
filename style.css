@@ -1,4 +1,9 @@
-* {
+
+.oculto {
+  display: none;
+}* 
+
+{
   box-sizing: border-box;
   margin: 4px;
 }
@@ -56,4 +61,10 @@
   display: flex;
   justify-content: center;
   margin: 15px;
+}
+
+#carrito {
+  border: 1px solid black;
+  width: 600px;
+  height: 400px;
 }

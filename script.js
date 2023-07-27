@@ -1,17 +1,28 @@
-let productos = [
-  { id: 60500, nombre: "Tortuga", categoria: "Lámparas de mesa", stock: 2, precio: 5000, rutaImagen: "Tortuga-Art-60500.jpg" },
-  { id: 60203, nombre: "Odín", categoria: "Lámparas de mesa", stock: 20, precio: 2650, rutaImagen: "Odín-Art-60203.jpg" },
-  { id: 60710, nombre: "Tortuga", categoria: "Lámparas de mesa", stock: 4, precio: 4500, rutaImagen: "Tortuga-Art-60710.jpg" },
-  { id: 1200, nombre: "Dixon", categoria: "Colgantes", stock: 6, precio: 2800, rutaImagen: "Dixon-Art-1200.jpg" },
-  { id: 1212, nombre: "Odín", categoria: "Colgantes", stock: 3, precio: 7300, rutaImagen: "Odín-Art-1212.jpg" },
-  { id: 1300, nombre: "Dixon", categoria: "Colgantes", stock: 2, precio: 5600, rutaImagen: "Dixon-Art-1300.jpg" },
-  { id: 77710, nombre: "Tortuga", categoria: "Lámparas de pie", stock: 7, precio: 2650, rutaImagen: "Tortuga-Art-77710.jpg" },
-  { id: 66000, nombre: "Odín", categoria: "Lámparas de pie", stock: 9, precio: 2650, rutaImagen: "Odín-Art-66000.png" },
-  { id: 7820, nombre: "Pixar XL", categoria: "Lámparas de pie", stock: 8, precio: 50000, rutaImagen: "PixarXL-Art-7820.png" },
-  { id: 30900, nombre: "Dixon", categoria: "Aplique de pared", stock: 1, precio: 2650, rutaImagen: "Dixon-Art-30900.jpg" },
-  { id: 30905, nombre: "Dixon", categoria: "Aplique de pared", stock: 10, precio: 2650, rutaImagen: "Dixon-Art-30905.png" },
-  { id: 3460, nombre: "Tortuga", categoria: "Aplique de pared", stock: 15, precio: 50000, rutaImagen: "Tortuga-Art-3460.png" }
-]
+function miProgramaPrincial() {
+
+  let productos = [
+    { id: 60500, nombre: "Tortuga", categoria: "Lámparas de mesa", stock: 2, precio: 5000, rutaImagen: "Tortuga-Art-60500.jpg" },
+    { id: 60203, nombre: "Odín", categoria: "Lámparas de mesa", stock: 20, precio: 2650, rutaImagen: "Odín-Art-60203.jpg" },
+    { id: 60710, nombre: "Tortuga", categoria: "Lámparas de mesa", stock: 4, precio: 4500, rutaImagen: "Tortuga-Art-60710.jpg" },
+    { id: 1200, nombre: "Dixon", categoria: "Colgantes", stock: 6, precio: 2800, rutaImagen: "Dixon-Art-1200.jpg" },
+    { id: 1212, nombre: "Odín", categoria: "Colgantes", stock: 3, precio: 7300, rutaImagen: "Odín-Art-1212.jpg" },
+    { id: 1300, nombre: "Dixon", categoria: "Colgantes", stock: 2, precio: 5600, rutaImagen: "Dixon-Art-1300.jpg" },
+    { id: 77710, nombre: "Tortuga", categoria: "Lámparas de pie", stock: 7, precio: 2650, rutaImagen: "Tortuga-Art-77710.jpg" },
+    { id: 66000, nombre: "Odín", categoria: "Lámparas de pie", stock: 9, precio: 2650, rutaImagen: "Odín-Art-66000.png" },
+    { id: 7820, nombre: "Pixar XL", categoria: "Lámparas de pie", stock: 8, precio: 50000, rutaImagen: "PixarXL-Art-7820.png" },
+    { id: 30900, nombre: "Dixon", categoria: "Aplique de pared", stock: 1, precio: 2650, rutaImagen: "Dixon-Art-30900.jpg" },
+    { id: 30905, nombre: "Dixon", categoria: "Aplique de pared", stock: 10, precio: 2650, rutaImagen: "Dixon-Art-30905.png" },
+    { id: 3460, nombre: "Tortuga", categoria: "Aplique de pared", stock: 15, precio: 50000, rutaImagen: "Tortuga-Art-3460.png" }
+  ]
+  let carrito = []
+let carritoJSON = JSON.parse(localStorage.getItem("carrito"))
+
+if(carritoJSON){
+  carrito = carritoJSON
+}
+
+
+
 
 localStorage.setItem("productos", JSON.stringify(productos))
 
@@ -21,6 +32,10 @@ input.addEventListener("input", () => filtrarYRenderizar(input.value))
 renderizar()
 renderizarCategorias()
 activarBotonesCategoria()
+renderizarCarrito(carritoJSON)
+} 
+
+miProgramaPrincial()
 
 
 function renderizarCategorias() {
@@ -78,31 +93,47 @@ function renderizar(conFiltros) {
   contenedorProductos.innerHTML = ""
 
   productosEnStorage.forEach(productosEnStorage => {
-    //MENSAJE DE UNIDADES:
-    let mensaje = "Unidades " + productosEnStorage.stock
-    //CAJA + ESTILO DE CAJA
     let tarjetaProducto = document.createElement("div")
 
-
-    //Logica para ultimas unidades que cambien de color
-    if (productosEnStorage.stock < 5) {
-      mensaje = "Últimas unidades"
-      tarjetaProducto.classList.add("ultimasUnidades")
-    }
+   
 
     tarjetaProducto.classList.add("tarjetaProducto")
     tarjetaProducto.setAttribute("id", productosEnStorage.categoria)
-
-    //ELEMENTOS DENTRO DE LA CAJA
+    
     tarjetaProducto.innerHTML = `
    <div class=imagen style="background-image: url(./images/${productosEnStorage.rutaImagen})"></div>
    <h2> ${productosEnStorage.nombre} </h2>
    <h3> ${"Art. " + productosEnStorage.id} </h3>
    <h4> ${"$" + productosEnStorage.precio} </h4>
-   <p> ${mensaje} </p>
+ 
+   <button id=${productosEnStorage.id}> Agregar al carrito </button>
    `
     contenedorProductos.appendChild(tarjetaProducto)
+    let botonAgregarAlCarrito = document.getElementById(productosEnStorage.id)
+    botonAgregarAlCarrito.addEventListener("click", agregarAlCarrito)
   })
+}
+
+function agregarAlCarrito(e) {
+    let productoBuscado = productos.find(producto => producto.id === Number(e.target.id))
+    carrito.push({
+      id: productoBuscado.id,
+      nombre: productoBuscado.nombre,
+      precio: productoBuscado.precio
+    })
+    console.log(carrito)
+    renderizarCarrito(carritoJSON)
+
+    localStorage.setItem("carrito", JSON.stringify(carrito))
+}
+
+function renderizarCarrito (carritoJSON) {
+  let carritoFisico = document.getElementById("carrito")
+
+  carrito.forEach(producto => {
+    carritoFisico.innerHTML += `<p>${producto.nombre} ${producto.precio}</p>\n`
+  })
+
 }
 
 function filtrarProductosPorCategoria(contenedorProductos, idBoton) {
@@ -152,6 +183,13 @@ function filtrarYRenderizar(valorFiltro) {
   renderizar(conFiltros)
 }
 
+let botonCarrito = document.getElementById("botonCarrito")
+botonCarrito.addEventListener("click", mostrarOcultar)
+
+function mostrarOcultar() {
+let padreContenedor = document.getElementById("productos")
+padreContenedor.classList.toggle("oculto")
+}
 
 
 
